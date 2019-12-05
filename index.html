@@ -14,71 +14,41 @@
     </header>
     <div class="introduction">
         <section>
-            <p>Welcome to our little site, created to make it easy for you to add those books you've always wanted to read, to your online booklist! However, to get started, and to save your progress and your fave books, please enter your name and prefered password here!
+            <p>Welcome to our little site, created to make it easy for you to add those books you've always wanted to read, to your online booklist! However, to get started, and to save your progress and your fave books, please get your personalized key here!
             </p>
         </section>
-        <form action="post">
-            <div class="username">
-                <label for="username">Username: </label>
-                <input id="username" type="text">
+        <div class="keyDiv">
+            <button id="getKey">Get your key!</button>
+            <div id="keyResult"></div>
+            <span>or write key here:</span>
+            <div class="ownKey">
+                <input type="text" class="ownKey">
+                <button class="ownKey">Use</br> this!</button>
             </div>
-            <div class="password">
-                <label for="password">Password: </label>
-                <input type="password">
+        </div>
+        <div class="errorDivOuter">
+            <p>Potential errors will show here! Scroll to read all errors from this session!</p>
+            <div class="errorDivInner" id="errorDiv">
             </div>
-    </form>
+            <p id="counter">Errors: <span></span></p>
+        </div>     
 </div>
-<button id="testBtn">Test Request</button>
+    <div class="createBook">
+
+        <button class="showBooks" id="showBooksBtn">Show all books</button>
+    
+        <label for="bookTitle">Titel:</label>
+        <input type="text" id="bookTitle">
+
+
+        <label for="bookAuthor">Author: </label>
+        <input type="text" id="bookAuthor">
+        <button id="createBookBtn">Save book!</button>
+
+    </div>
+
     <main class="books">
-        <div class="bookCard">
-            <img src="https://source.unsplash.com/150x200?books" alt="book">
-            <ul>
-                <!-- <li>Id: <span>Book1</span></li> -->
-                <li>Title: <span>Run to the wild</span></li>
-                <li>Author: <span>Boy Rohdell</span></li>
-                <li>Updated: <span>21:57</span></li>
-            </ul>
-            <div class="bookBtns">
-                <button class="changeBook">Change info</button>
-                <button class="deleteBook">Delete book</button>
-            </div>
-        </div>
-        <div class="bookCard">
-            <img src="https://source.unsplash.com/150x200?book" alt="book">            <ul>
-                <!-- <li>Id: <span>Book1</span></li> -->
-                <li>Title: <span>Run to the wild</span></li>
-                <li>Author: <span>Boy Rohdell</span></li>
-                <li>Updated: <span>21:57</span></li>
-            </ul>
-            <div class="bookBtns">
-                <button class="changeBook">Change info</button>
-                <button class="deleteBook">Delete book</button>
-            </div>
-        </div>
-        <div class="bookCard">
-            <img src="https://source.unsplash.com/150x200?letters" alt="book">            <ul>
-                <!-- <li>Id: <span>Book1</span></li> -->
-                <li>Title: <span>Run to the wild</span></li>
-                <li>Author: <span>Boy Rohdell</span></li>
-                <li>Updated: <span>21:57</span></li>
-            </ul>
-            <div class="bookBtns">
-                <button class="changeBook">Change info</button>
-                <button class="deleteBook">Delete book</button>
-            </div>
-        </div>
-        <div class="bookCard">
-            <img src="https://source.unsplash.com/150x200?typography" alt="book">            <ul>
-                <!-- <li>Id: <span>Book1</span></li> -->
-                <li>Title: <span>Run to the wild</span></li>
-                <li>Author: <span>Boy Rohdell</span></li>
-                <li>Updated: <span>21:57</span></li>
-            </ul>
-            <div class="bookBtns">
-                <button class="changeBook">Change info</button>
-                <button class="deleteBook">Delete book</button>
-            </div>
-        </div>
+
     </main>
 </body>
 </html>
