@@ -1,5 +1,4 @@
 let key = '5YyUL';
-let counter = 0;
 
 let searchWords = [ 'book', 'books', 'letter', 'letters', 'read', 'text', 'library'];
 
@@ -9,8 +8,8 @@ const viewRequest = baseUrl + '&op=select';
 
 window.addEventListener('load', () => {
 
-    let errorCounter = document.querySelector('p#counter>span');
-    updateErrors();
+    // let errorCounter = document.querySelector('p#counter>span');
+    // updateErrors();
 
     let getKeyBtn = document.getElementById('getKey');
     getKeyBtn.addEventListener('click', getUserKey);
@@ -26,10 +25,10 @@ window.addEventListener('load', () => {
 
 });
 
-function updateErrors(){
+function updateErrors(err){
     let errorCounter = document.querySelector('p#counter>span');
 
-    errorCounter.innerText = counter;
+    errorCounter.innerText = err;
 }
 
 async function getUserKey(){
@@ -67,14 +66,25 @@ function keyToDiv(result){
 
 function statusDiv(result){
     let errorDiv = document.getElementById('errorDiv');
-    let newStatusMessage = document.createElement('p');
-    newStatusMessage.classList.add('errors');
-    newStatusMessage.innerText = result;
-    errorDiv.appendChild(newStatusMessage);
-    
+    let oldErrors = errorDiv.children;
+    let arrayOldErrors = Array.from(oldErrors);
+
+    arrayOldErrors.forEach(child => {
+        errorDiv.removeChild(child);
+    });
+
+    for(let i = 0; i < result.length; i++){
+
+        let newStatusMessage = document.createElement('p');
+        newStatusMessage.classList.add('errors');
+        newStatusMessage.innerText = result[i];
+        errorDiv.appendChild(newStatusMessage);
+    }
 }
 
 async function newBook(){
+    let i = 0;
+    let statusList = [];
     let bookTitle = document.getElementById('bookTitle').value;
     let bookAuthor = document.getElementById('bookAuthor').value;
 
@@ -82,22 +92,24 @@ async function newBook(){
     let data = await response.json();
 
     if(data.status === "success"){
-        console.log(data); 
-        statusDiv("Succeded to create new book!")  
+        statusList.push("Succeded to create new book!")
+        statusDiv(statusList);
     } else {
-        for(let i=0; i < 5; i++){
-            counter++;
-            updateErrors();
+        for(i; i < 5; i++){
+    
             let response = await fetch(baseUrl + `${key}&title=${bookTitle}&author=${bookAuthor}&op=insert`);
             let data = await response.json();
-            console.log(data);
 
             if(data.status === "success"){
-                statusDiv("Succeded to create new book!");
+                statusList.push("Succeded to create new book!")
+                statusDiv(statusList);
+                i;
+                updateErrors(i);
                 break;
             } else {
-                statusDiv(data.message);
-
+                statusList.push(data.message);
+                statusDiv(statusList);
+                updateErrors(i);
             }
         }
     }
@@ -175,30 +187,38 @@ function createBook(id, title, author, updated){
 
 
 async function showBooks(){
+    let i = 0;
+    let statusList = [];
     let response = await fetch(baseUrl + `${key}&op=select`)
     let data = await response.json();
 
     if(data.status == 'success'){
-        for(let i=0; i < data.data.length; i++){
+        for(i; i < data.data.length; i++){
             createBook(data.data[i].id, data.data[i].title, data.data[i].author, data.data[i].updated);   
         }
+        statusList.push('Succeeded to show books!');
+        statusDiv(statusList);
     } else {
 
-        for(let i=0; i < 5; i++){
-            counter++;
-            updateErrors();
+        for(i; i < 5; i++){
+    
             let response = await fetch(baseUrl + `${key}&op=select`)
             let data = await response.json();
 
 
             if(data.status === "success"){
-                for(let i=0; i < data.data.length; i++){
+                for(let i = 0; i < data.data.length; i++){
                     createBook(data.data[i].id, data.data[i].title, data.data[i].author, data.data[i].updated);   
                 }
-                statusDiv('Succeeded to show books!');
+                statusList.push('Succeeded to show books!');
+                statusDiv(statusList);
+                i--;
+                updateErrors(i);
                 break;
             } else {
-                statusDiv(data.message);
+                statusList.push(data.message)
+                statusDiv(statusList);
+                updateErrors(i);
 
             }
         }
@@ -206,30 +226,36 @@ async function showBooks(){
 }
 
 async function deleteBookFromServer(id, bookCard){
+    let i = 0;
+    let statusList = [];
 
     let mainGrid = document.querySelector('main.books');
     let response = await fetch(baseUrl + `${key}&id=${id}&op=delete`)
     let data = await response.json();
 
-    console.log(data);
 
     if(data.status == 'success'){
         mainGrid.removeChild(bookCard);
-        statusDiv('Succeeded to delete book!');
+        statusList.push('Succeeded to delete book!')
+        statusDiv(statusList);
        
     } else {
-        for(let i=0; i < 5; i++){
-            counter++;
-            updateErrors();
+        for(i; i < 5; i++){
+    
             let response = await fetch(baseUrl + `${key}&id=${id}&op=delete`)
             let data = await response.json();
 
             if(data.status === "success"){
                 mainGrid.removeChild(bookCard);
-                statusDiv('Succeeded to delete book!')
+                statusList.push('Succeeded to delete book!');
+                statusDiv(statusList);
+                i--;
+                updateErrors(i);
                 break;
             } else {
-                statusDiv(data.message);
+                statusList.push(data.message)
+                statusDiv(statusList);
+                updateErrors(i);
             }
         }
 
@@ -252,7 +278,8 @@ async function changeBookInfo(listTitle, listAuthor, spanTitle, spanAuthor, id){
     listAuthor.appendChild(newInputAuthor);
 
     newInputTitle.addEventListener('blur', async() => {
-        console.log(listTitle, newInputTitle);
+        let statusList = [];
+
         if(newInputTitle.value === ''){
             listTitle.removeChild(newInputTitle);
             spanTitle.innerText = oldValueTitle;
@@ -260,24 +287,26 @@ async function changeBookInfo(listTitle, listAuthor, spanTitle, spanAuthor, id){
         } else {
             let newTitleValue = newInputTitle.value;
             let i = 0;
-    
             let response = await fetch(baseUrl + `${key}&id=${id}&Title=${newTitleValue}&title=${oldValueTitle}&op=update`);
             let data = await response.json();
             if(data.status !== "success"){
     
-                for(i; i < 5; i++){
-                    counter++;
-                    updateErrors();
+                for(let i = 0; i < 5; i++){
+            
                     let response = await fetch(baseUrl + `${key}&id=${id}&title=${newTitleValue}&author=${oldValueAuthor}&op=update`);
                     let data = await response.json();
-                    statusDiv(data.message);
+                    statusList.push(data.message);
+                    statusDiv(statusList);
         
                     if(data.status === "success"){
     
                         listTitle.removeChild(newInputTitle);
                         spanTitle.innerText = newTitleValue;
                         listTitle.appendChild(spanTitle);
-                        statusDiv('Succeeded to update book Title!')
+                        statusList.push('Succeeded to update book Title!')
+                        statusDiv(statusList);
+                        i--;
+                        updateErrors(i);
                         break;
                     }
                 }
@@ -287,7 +316,9 @@ async function changeBookInfo(listTitle, listAuthor, spanTitle, spanAuthor, id){
                 listTitle.removeChild(newInputTitle);
                 spanTitle.innerText = oldValueTitle;
                 listTitle.appendChild(spanTitle);
-                statusDiv(data.message);
+                statusList.push(data.message);
+                statusDiv(statusList);
+                updateErrors(i);
     
             }
     
@@ -295,7 +326,7 @@ async function changeBookInfo(listTitle, listAuthor, spanTitle, spanAuthor, id){
     });
 
     newInputAuthor.addEventListener('blur', async() => {
-        console.log(listAuthor, newInputAuthor);
+        let statusList = [];
         if(newInputAuthor.value === ''){
             listAuthor.removeChild(newInputAuthor);
             spanAuthor.innerText = oldValueAuthor;
@@ -303,34 +334,36 @@ async function changeBookInfo(listTitle, listAuthor, spanTitle, spanAuthor, id){
         } else {
             let newAuthorValue = newInputAuthor.value;
             let i = 0;
-
             let response = await fetch(baseUrl + `${key}&id=${id}&author=${newAuthorValue}&title=${oldValueTitle}&op=update`);
             let data = await response.json();
             if(data.status !== "success"){
 
-                for(i; i < 5; i++){
-                    counter++;
-                    updateErrors();
+                for(let i = 0; i < 5; i++){
+            
                     let response = await fetch(baseUrl + `${key}&id=${id}&author=${newAuthorValue}&title=${oldValueTitle}&op=update`);
                     let data = await response.json();
-                    console.log(data , i);
         
                     if(data.status === "success"){
 
                         listAuthor.removeChild(newInputAuthor);
                         spanAuthor.innerText = newAuthorValue;
                         listAuthor.appendChild(spanAuthor);
-                        statusDiv('Succeeded to update book author!')
+                        statusList.push('Succeeded to update book author!')
+                        statusDiv(statusList);
+                        i--;
+                        updateErrors(i);
                         break;
                     }
                 }
             }
-            if(i === 5){
+            if(i === 4){
 
                 listAuthor.removeChild(newInputAuthor);
                 spanAuthor.innerText = oldValueAuthor;
                 listAuthor.appendChild(spanAuthor);
-                statusDiv(data.message);
+                statusList.push(data.message);
+                statusDiv(statusList);
+                updateErrors(i);
 
             }
 
