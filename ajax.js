@@ -94,8 +94,11 @@ async function newBook(){
     if(data.status === "success"){
         statusList.push("Succeded to create new book!")
         statusDiv(statusList);
+        updateErrors(i);
     } else {
-        for(i; i < 5; i++){
+        i = 1;
+        statusList.push(data.message);
+        for(i; i < 6; i++){
     
             let response = await fetch(baseUrl + `${key}&title=${bookTitle}&author=${bookAuthor}&op=insert`);
             let data = await response.json();
@@ -103,15 +106,14 @@ async function newBook(){
             if(data.status === "success"){
                 statusList.push("Succeded to create new book!")
                 statusDiv(statusList);
-                i;
-                updateErrors(i);
+
                 break;
             } else {
                 statusList.push(data.message);
                 statusDiv(statusList);
-                updateErrors(i);
             }
         }
+        updateErrors(i);
     }
     
 }
@@ -193,14 +195,19 @@ async function showBooks(){
     let data = await response.json();
 
     if(data.status == 'success'){
-        for(i; i < data.data.length; i++){
+
+        for(let i = 0; i < data.data.length; i++){
             createBook(data.data[i].id, data.data[i].title, data.data[i].author, data.data[i].updated);   
         }
+
         statusList.push('Succeeded to show books!');
         statusDiv(statusList);
-    } else {
 
-        for(i; i < 5; i++){
+    } else {
+        i = 1;
+        statusList.push(data.message);
+
+        for(i; i < 6; i++){
     
             let response = await fetch(baseUrl + `${key}&op=select`)
             let data = await response.json();
@@ -212,16 +219,15 @@ async function showBooks(){
                 }
                 statusList.push('Succeeded to show books!');
                 statusDiv(statusList);
-                i--;
-                updateErrors(i);
+
                 break;
             } else {
                 statusList.push(data.message)
                 statusDiv(statusList);
-                updateErrors(i);
 
             }
         }
+        updateErrors(i);
     }
 }
 
@@ -238,9 +244,12 @@ async function deleteBookFromServer(id, bookCard){
         mainGrid.removeChild(bookCard);
         statusList.push('Succeeded to delete book!')
         statusDiv(statusList);
+        updateErrors(i);
        
     } else {
-        for(i; i < 5; i++){
+        statusList.push(data.message);
+        i = 1;
+        for(i; i < 6; i++){
     
             let response = await fetch(baseUrl + `${key}&id=${id}&op=delete`)
             let data = await response.json();
@@ -249,15 +258,15 @@ async function deleteBookFromServer(id, bookCard){
                 mainGrid.removeChild(bookCard);
                 statusList.push('Succeeded to delete book!');
                 statusDiv(statusList);
-                i--;
-                updateErrors(i);
+
                 break;
+
             } else {
                 statusList.push(data.message)
                 statusDiv(statusList);
-                updateErrors(i);
             }
         }
+        updateErrors(i);
 
     }
 }
@@ -287,39 +296,55 @@ async function changeBookInfo(listTitle, listAuthor, spanTitle, spanAuthor, id){
         } else {
             let newTitleValue = newInputTitle.value;
             let i = 0;
-            let response = await fetch(baseUrl + `${key}&id=${id}&Title=${newTitleValue}&title=${oldValueTitle}&op=update`);
+
+            let response = await fetch(baseUrl + `${key}&id=${id}&title=${newTitleValue}&author=${oldValueAuthor}&op=update`);
             let data = await response.json();
-            if(data.status !== "success"){
+
+            if(data.status === "success"){
+                listTitle.removeChild(newInputTitle);
+                spanTitle.innerText = newTitleValue;
+                listTitle.appendChild(spanTitle);
+
+                statusList.push('Succeeded to update book Title!');
+                statusDiv(statusList);
+                updateErrors(i);
+            } else {
+
+                statusList.push(data.message);
+                i = 1;
     
-                for(let i = 0; i < 5; i++){
+                for(i; i < 6; i++){
             
                     let response = await fetch(baseUrl + `${key}&id=${id}&title=${newTitleValue}&author=${oldValueAuthor}&op=update`);
                     let data = await response.json();
-                    statusList.push(data.message);
-                    statusDiv(statusList);
         
                     if(data.status === "success"){
     
                         listTitle.removeChild(newInputTitle);
                         spanTitle.innerText = newTitleValue;
                         listTitle.appendChild(spanTitle);
+
                         statusList.push('Succeeded to update book Title!')
                         statusDiv(statusList);
-                        i--;
-                        updateErrors(i);
+
                         break;
+                    } else {
+
+                        statusList.push(data.message);
+                        statusDiv(statusList);
+                    }
+                    if(i === 5){
+          
+                        listTitle.removeChild(newInputTitle);
+                        spanTitle.innerText = oldValueTitle;
+                        listTitle.appendChild(spanTitle);
+
+                        statusList.push(data.message);
+                        statusDiv(statusList);
+            
                     }
                 }
-            }
-            if(i === 4){
-          
-                listTitle.removeChild(newInputTitle);
-                spanTitle.innerText = oldValueTitle;
-                listTitle.appendChild(spanTitle);
-                statusList.push(data.message);
-                statusDiv(statusList);
                 updateErrors(i);
-    
             }
     
         }
@@ -334,39 +359,56 @@ async function changeBookInfo(listTitle, listAuthor, spanTitle, spanAuthor, id){
         } else {
             let newAuthorValue = newInputAuthor.value;
             let i = 0;
+        
             let response = await fetch(baseUrl + `${key}&id=${id}&author=${newAuthorValue}&title=${oldValueTitle}&op=update`);
             let data = await response.json();
-            if(data.status !== "success"){
-
-                for(let i = 0; i < 5; i++){
+        
+            if(data.status === "success"){
+                listAuthor.removeChild(newInputAuthor);
+                spanAuthor.innerText = newAuthorValue;
+                listAuthor.appendChild(spanAuthor);
+        
+                statusList.push('Succeeded to update book Author!');
+                statusDiv(statusList);
+                updateErrors(i);
+            } else {
+        
+                statusList.push(data.message);
+                i = 1;
+        
+                for(i; i < 6; i++){
             
                     let response = await fetch(baseUrl + `${key}&id=${id}&author=${newAuthorValue}&title=${oldValueTitle}&op=update`);
                     let data = await response.json();
         
                     if(data.status === "success"){
-
+        
                         listAuthor.removeChild(newInputAuthor);
                         spanAuthor.innerText = newAuthorValue;
                         listAuthor.appendChild(spanAuthor);
-                        statusList.push('Succeeded to update book author!')
+        
+                        statusList.push('Succeeded to update book Author!')
                         statusDiv(statusList);
-                        i--;
-                        updateErrors(i);
+        
                         break;
+                    } else {
+        
+                        statusList.push(data.message);
+                        statusDiv(statusList);
+                    }
+                    if(i === 5){
+          
+                        listAuthor.removeChild(newInputAuthor);
+                        spanAuthor.innerText = oldValueAuthor;
+                        listAuthor.appendChild(spanAuthor);
+        
+                        statusList.push(data.message);
+                        statusDiv(statusList);
+            
                     }
                 }
-            }
-            if(i === 4){
-
-                listAuthor.removeChild(newInputAuthor);
-                spanAuthor.innerText = oldValueAuthor;
-                listAuthor.appendChild(spanAuthor);
-                statusList.push(data.message);
-                statusDiv(statusList);
                 updateErrors(i);
-
             }
-
         }
     });
 
