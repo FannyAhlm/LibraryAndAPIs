@@ -8,9 +8,6 @@ const viewRequest = baseUrl + '&op=select';
 
 window.addEventListener('load', () => {
 
-    // let errorCounter = document.querySelector('p#counter>span');
-    // updateErrors();
-
     let getKeyBtn = document.getElementById('getKey');
     getKeyBtn.addEventListener('click', getUserKey);
 
@@ -95,6 +92,7 @@ async function newBook(){
         statusList.push("Succeded to create new book!")
         statusDiv(statusList);
         updateErrors(i);
+        showBooks('ny bok');
     } else {
         i = 1;
         statusList.push(data.message);
@@ -106,6 +104,7 @@ async function newBook(){
             if(data.status === "success"){
                 statusList.push("Succeded to create new book!")
                 statusDiv(statusList);
+                showBooks('ny bok');
 
                 break;
             } else {
@@ -181,16 +180,25 @@ function createBook(id, title, author, updated){
         bookCard.appendChild(btnDiv);
 
         let mainDiv = document.querySelector('main.books');
-        mainDiv.appendChild(bookCard);
+        if(mainDiv.firstChild === null){
+            mainDiv.appendChild(bookCard);
+        } else{
+            mainDiv.insertBefore(bookCard, mainDiv.firstChild);
+        }
     }
 }
 
 
 
 
-async function showBooks(){
+async function showBooks(fromWhereIsFunctionCalled){
     let i = 0;
     let statusList = [];
+
+    if(fromWhereIsFunctionCalled === 'ny bok'){
+        statusList = ["Succeded to create new book!"];
+    }
+
     let response = await fetch(baseUrl + `${key}&op=select`)
     let data = await response.json();
 

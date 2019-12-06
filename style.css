@@ -6,59 +6,74 @@
 }
 body{
     background-color: rgb(255, 255, 255);
+    background-image: url('https://images.unsplash.com/photo-1533035350251-aa8b8e208d95?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=60');
+    background-size: cover;
     min-width: 100vw;
     min-height: 100vh;
+    background-color: rgb(253, 250, 236);
 }
 
 header.top{
     width: 100vw;
-    height: 4rem;
-    background-color: rgb(19, 180, 126);
-    color: rgb(255, 255, 255);
+    padding-top: 2rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 2rem;
 }
 
 header.top > h1{
-    color: inherit;
-    font-size: 2rem;
+    color: rgb(6, 196, 132);
+    font-size: 5rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+header.top > section > p{
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.671);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px -8px black;
+    width: 80vw;
+    text-align: center;
+    color: rgb(14, 167, 116);
+    font-size: 1.2rem;
 }
 div.introduction{
     min-height: 280px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-}
-div.introduction > section{
-    grid-column: 1/2;
-    padding: 3rem;
-    background-color: rgb(253, 250, 236);
-    display: inline-flex;
-    justify-content: center;
+    margin: 0 auto 1rem;
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
+    background-color: rgba(187, 187, 187, 0.582);
+    border-radius: 10px;
 }
-div.introduction > section > p{
-    text-align: center;
-    color: black;
-    font-size: 1.05rem;
-}
+
+
 div.keyDiv{
-    grid-column: 2/3;
-    width: 100%;
+    width: 40%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center;
-    background-color: teal;
-    min-height: 10rem;
+    align-items: flex-start;
+    /* background-color: teal; */
+    min-height: 16rem;
     
+}
+
+div.getKeyDiv{
+    width: 100%;
+    padding-right: 3rem;
 }
 
 
 button#getKey{
-    width: 60%;
+    width: 100%;
     height: 2rem;
+    margin-bottom: 3px;
     border-radius: 5px;
     background-color: rgba(76, 143, 102, 0.623);
     font-weight: 600;
@@ -70,43 +85,85 @@ div#keyResult{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60%;
-    height: 5rem;
+    border: 1px solid black;
+    padding: .5rem;
+    width: 100%;
+    height: 3rem;
     background-color: white;
 }
 
-div.ownKey{
-    /* border: 2px solid red; */
+span.ownKey{
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+div.ownKeyFull{
+    width: 100%;
     display: flex;
+    flex-direction: column;
+    padding-right: 3rem;
+}
+
+div.ownKeyInputs{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    width: 60%;
+    width: 100%;
+}
+input.ownKey{
+    height: 3rem;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 1px solid black;
+}
+button.ownKey{
+    position: relative;
+    background-color: rgba(76, 143, 102, 0.623);
+    width: 100%;
+    height: 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 3px;
+    cursor: pointer;
 }
 
 div.errorDivOuter{
-    grid-column: 3/4;
-    background-color: rgb(255, 255, 255);
-    width: 100%;
-    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    width: 50%;
+    min-height: 13rem;
     position: relative;
+    border-radius: 10px;
+    margin-right: 1rem;
 }
+p.errorHead{
+    font-size: 1.2rem;
+    font-family: Tahoma, sans-serif;
+    text-align: center;
+    font-weight: bold;
+}
+div.errorDivOuter > p,
+div.errorDivOuter span{
+    color: rgb(255, 255, 255);
+} 
 
 div.errorDivInner{
     width: 100%;
     height: 60%;
-    background-color: rgb(0, 0, 0);
+    background-color: white;
+    border: 2px solid black;
     position: absolute;
-    bottom: 15%;
+    bottom: 10%;
     overflow: scroll;
 }
-div.errorDivOuter > p{
-    padding: 1rem;
-    text-align: center;
-    font-weight: bold;
-}
 p.errors{
-    color: white;
+    color: black;
     margin: .5rem;
-    font-size: .8rem;
+    font-size: .7rem;
+    font-family: Tahoma, sans-serif;
 
 }
 
@@ -121,7 +178,6 @@ div.createBook{
     min-height: 3rem;
     padding: 1rem;
     display: flex;
-    margin-bottom: 1rem;
     justify-content: space-evenly;
     align-items: center;
 }
@@ -141,11 +197,19 @@ div.createBook button{
     width: 4rem;
     height: 3rem;
     border-radius: 5px;
+    cursor: pointer;
+}
+div.mainContainer{
+    background-color: rgb(148, 148, 148);
+    padding-top: 2rem;
 }
 main.books{
     margin: 0 auto;
     width: 90vw;
-    /* border: 2px solid red; */
+    padding: 2rem;
+    border-radius: 10px;
+    min-height: 50vh;
+    background-color: rgba(255, 255, 255, 0.973);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     grid-gap: 1rem;
@@ -157,7 +221,7 @@ div.bookCard{
     background-color: rgb(253, 250, 236);
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 1px 1px 15px -10px;
+    box-shadow: 1px 1px 15px -8px;
 }
 div.bookCard:hover{
     transform: scale(1.1);
@@ -201,20 +265,36 @@ div.bookBtns > button{
 
 @media screen and (max-width: 600px){
     div.introduction{
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
-    }
-    div.introduction > section{
-        grid-column: 1/2;
-        grid-row: 1/2;
+        flex-direction: column;
     }
     div.keyDiv{
-        grid-column: 1/2;
-        grid-row: 2/3;
+        width: 70%;
+    }
+    div.getKeyDiv{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-right: 0;
+        margin-top: 1rem;
+    }
+    button#getKey{
+        width: 100%;
+        height: 3rem;
+    }
+    div#keyResult{
+        border-radius: 3px;
+        width: 100%;
+        height: 5rem;
+    }
+    div.ownKeyFull{
+        display: flex;
+        flex-direction: column;
+        padding-right: 0;
+        margin-top: 1rem;
     }
     div.errorDivOuter{
-        grid-column: 1/2;
-        grid-row: 3/5;
+        margin: 2rem auto;
     }
 
     div.createBook{
@@ -224,9 +304,11 @@ div.bookBtns > button{
     #createBookBtn{
         position: absolute;
         right: 10%;
+        width: 6rem;
     }
     #showBooksBtn{
         position: absolute;
         left: 10%;
+        width: 6rem;
     }
 }
