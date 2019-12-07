@@ -1,0 +1,16 @@
+I min kodgranskning har jag jobbat med att granska Hannas och Karins kod. Jag har gjort detta när de fortfarande har (vad jag antar är) en del kvar att göra innan de känner sig klara, därför är min granskning utifrån i vilket läge de befinner sig nu.
+
+3 saker jag tycker att de gjort bra:
+    - De har än så länge väldigt tydliga variabel-namn. Det är lätt att förstå vad i koden det är man plockar ut/arbetar med!
+
+    - De har skapat många funktioner med kort innehåll, vilket gör att de inte har långa funktioner som känns svåra att hänga med i, det är lätt att återigen hålla kolla på vad som gör vad. Det blir heller inte många indrag som gör att det blir otydligt av den anledningen.
+
+    - De är noga med att console-logga, och göra kommentarer för att ha koll på vad som funkar, vad som inte funkar, och att hålla koll på vad de behöver fortsätta jobba med.
+
+Som en sammanfattning så tycker jag att det som Hanna och Karin verkar vara väldigt bra på tillsammans, är att skriva kod som är tydlig, strukturerad, och ganska enkel för en utomstående att komma in i.
+
+1 sak som jag tycker att de skulle kunna göra bättre:
+
+    - Detta kanske blir att säga emot mig själv litegrann, men även om jag tycker att console-loggandet är bra, så som koden ser ut nu, så tycker jag att det kanske hade varit bättre att skriva klart en funktion, testa om den funkar, tills den funkar, och sedan ta bort console-loggarna. Därefter gå på nästa funktion och testa den med nya consol-loggar.
+
+    Det är bra att testerna görs, men koden skulle kunna bli ännu tydligare och kortare om de plockade bort sina consol-loggar så fort de vet att funktionerna funkar.

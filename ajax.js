@@ -42,7 +42,7 @@ async function getUserKey(){
 
 };
 
-function useThisKey(){
+async function useThisKey(){
     let userInputKey = document.querySelector('input.ownKey');
     
 
@@ -50,6 +50,13 @@ function useThisKey(){
     if(userKey.length === 5){
         key = userKey
         keyToDiv('');
+       let keyWorking = await showBooks('own key');
+       console.log(keyWorking);
+       
+       if(keyWorking === false){
+        keyToDiv('This is not a valid Key, try again!')
+       }
+
     } else {
         keyToDiv('This is not a valid Key, try again!')
     }
@@ -195,12 +202,20 @@ async function showBooks(fromWhereIsFunctionCalled){
     let i = 0;
     let statusList = [];
 
-    if(fromWhereIsFunctionCalled === 'ny bok'){
-        statusList = ["Succeded to create new book!"];
-    }
-
     let response = await fetch(baseUrl + `${key}&op=select`)
     let data = await response.json();
+
+    if(fromWhereIsFunctionCalled === 'ny bok'){
+        statusList = ["Succeded to create new book!"];
+    } else if(fromWhereIsFunctionCalled === 'own key') {
+        if(data.message === 'Bad API key, use "requestKey" to request a new one.'){
+            let notWorking = false;
+            console.log(notWorking);
+            return notWorking;
+        } else {
+            statusList = ["Succeded to update your key"];
+        }
+    }
 
     if(data.status == 'success'){
 
