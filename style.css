@@ -49,6 +49,7 @@ div.introduction{
     align-items: center;
     background-color: rgba(187, 187, 187, 0.582);
     border-radius: 10px;
+    font-family: Tahoma, sans-serif;
 }
 
 
@@ -59,14 +60,15 @@ div.keyDiv{
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-start;
-    /* background-color: teal; */
     min-height: 16rem;
+    font-family: inherit;
     
 }
 
 div.getKeyDiv{
     width: 100%;
     padding-right: 3rem;
+    font-family: inherit;
 }
 
 
@@ -79,6 +81,7 @@ button#getKey{
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
+    font-family: inherit;
 }
 
 div#keyResult{
@@ -88,8 +91,9 @@ div#keyResult{
     border: 1px solid black;
     padding: .5rem;
     width: 100%;
-    height: 3rem;
+    height: 4rem;
     background-color: white;
+    font-family: inherit;
 }
 
 span.ownKey{
@@ -99,12 +103,14 @@ span.ownKey{
     width: 100%;
     text-align: center;
     padding-bottom: 1rem;
+    font-family: inherit;
 }
 div.ownKeyFull{
     width: 100%;
     display: flex;
     flex-direction: column;
     padding-right: 3rem;
+    font-family: inherit;
 }
 
 div.ownKeyInputs{
@@ -112,12 +118,14 @@ div.ownKeyInputs{
     flex-direction: column;
     justify-content: center;
     width: 100%;
+    font-family: inherit;
 }
 input.ownKey{
     height: 3rem;
     font-size: 1.5rem;
     text-align: center;
     border: 1px solid black;
+    font-family: inherit;
 }
 button.ownKey{
     position: relative;
@@ -129,6 +137,7 @@ button.ownKey{
     font-weight: bold;
     margin-top: 3px;
     cursor: pointer;
+    font-family: inherit;
 }
 
 div.errorDivOuter{
@@ -138,10 +147,11 @@ div.errorDivOuter{
     position: relative;
     border-radius: 10px;
     margin-right: 1rem;
+    font-family: inherit;
 }
 p.errorHead{
     font-size: 1.2rem;
-    font-family: Tahoma, sans-serif;
+    font-family: inherit;
     text-align: center;
     font-weight: bold;
 }
@@ -158,13 +168,16 @@ div.errorDivInner{
     position: absolute;
     bottom: 10%;
     overflow: scroll;
+    font-family: inherit;
 }
 p.errors{
     color: black;
     margin: .5rem;
-    font-size: .7rem;
-    font-family: Tahoma, sans-serif;
-
+    font-size: 1.1rem;
+}
+p.success{
+    color: green;
+    font-weight: bold;
 }
 
 p#counter{
@@ -175,29 +188,46 @@ p#counter{
 div.createBook{
     width: 100vw;
     background-color: rgb(65, 79, 80);
-    min-height: 3rem;
-    padding: 1rem;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-end;
+    padding: 1rem;
 }
-div.title, div.author{
-    border: 2px solid pink;
-    height: auto;
+div.createThisBook{
+    height: 100%;
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
+    width: 80%;
+    margin-right: 1rem;
+}
+div.bookTitle,
+div.bookAuthor{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
 }
 div.createBook label{
-    color: white;
-    font-size: 1.2rem;
+    color: rgb(112, 187, 128);
+    font-size: 1.4rem;
     font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+div.createBook input{
+    height: 2rem;
+    width: 15rem;
+    font-size: 1.2rem;
+    padding-left: .5rem;
 }
 
 div.createBook button{
-    width: 4rem;
+    width: 6rem;
     height: 3rem;
-    border-radius: 5px;
+    /* margin: .5rem; */
+    border-radius: 2px;
     cursor: pointer;
+    position: relative;
+    background-color: rgba(76, 143, 102, 0.623);
+    font-weight: bold;
 }
 div.mainContainer{
     background-color: rgb(148, 148, 148);
@@ -214,6 +244,7 @@ main.books{
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     grid-gap: 1rem;
     justify-items: center;
+    box-shadow: inset 0px 0px 3px 1px black;
 }
 
 div.bookCard{
@@ -263,7 +294,7 @@ div.bookBtns > button{
 }
 
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 560px){
     div.introduction{
         flex-direction: column;
     }
@@ -295,20 +326,46 @@ div.bookBtns > button{
     }
     div.errorDivOuter{
         margin: 2rem auto;
+        width: 70%;
     }
 
-    div.createBook{
+    div.createThisBook{
         flex-direction: column;
         font-size: 1.8rem;
+        align-items: center;
+    }
+    div.bookTitle,
+    div.bookAuthor{
+        margin-left: 0;
     }
     #createBookBtn{
         position: absolute;
-        right: 10%;
+        right: 1rem;
         width: 6rem;
     }
     #showBooksBtn{
         position: absolute;
-        left: 10%;
+        left: 1rem;
         width: 6rem;
+    }
+}
+@media screen and (max-width: 400px){
+    div.createBook{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #showBooksBtn,
+    #createBookBtn{
+        position: relative;
+        right: 0;
+        left: 0;
+        margin: 1rem;
+    }
+    #showBooksBtn{
+        margin-top: 1rem;
+    }
+    #createBookBtn{
+        margin-bottom: 1rem;
     }
 }

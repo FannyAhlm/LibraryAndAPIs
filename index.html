@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="errorDivOuter">
-            <p class='errorHead'>Potential errors will show here!</p>
+            <p class='errorHead'>Potential errors will show here, scroll to see all!</p>
             <div class="errorDivInner" id="errorDiv">
             </div>
             <p id="counter">Errors: <span></span></p>
@@ -39,15 +39,19 @@
     <div class="createBook">
 
         <button class="showBooks" id="showBooksBtn">Show all books</button>
-    
-        <label for="bookTitle">Title: </label>
-        <input type="text" id="bookTitle">
+        <div class="createThisBook">
+            <div class="bookTitle">
+                <label for="bookTitle">Title: </label>
+                <input type="text" id="bookTitle">
+            </div>
 
+            <div class="bookAuthor">
+                <label for="bookAuthor">Author: </label>
+                <input type="text" id="bookAuthor">
+            </div>
 
-        <label for="bookAuthor">Author: </label>
-        <input type="text" id="bookAuthor">
+        </div>
         <button id="createBookBtn">Save book!</button>
-
     </div>
     <div class="mainContainer">
     <main class="books"></main>

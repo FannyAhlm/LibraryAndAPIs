@@ -51,10 +51,11 @@ async function useThisKey(){
         key = userKey
         keyToDiv('');
        let keyWorking = await showBooks('own key');
-       console.log(keyWorking);
        
        if(keyWorking === false){
         keyToDiv('This is not a valid Key, try again!')
+       } else {
+           keyToDiv('Successfull key!');
        }
 
     } else {
@@ -82,6 +83,9 @@ function statusDiv(result){
         let newStatusMessage = document.createElement('p');
         newStatusMessage.classList.add('errors');
         newStatusMessage.innerText = result[i];
+        if(newStatusMessage.innerText.includes('Succeeded')){
+            newStatusMessage.classList.add('success');
+        }
         errorDiv.appendChild(newStatusMessage);
     }
 }
@@ -96,7 +100,7 @@ async function newBook(){
     let data = await response.json();
 
     if(data.status === "success"){
-        statusList.push("Succeded to create new book!")
+        statusList.push("Succeeded to create new book!")
         statusDiv(statusList);
         updateErrors(i);
         showBooks('ny bok');
@@ -109,7 +113,7 @@ async function newBook(){
             let data = await response.json();
 
             if(data.status === "success"){
-                statusList.push("Succeded to create new book!")
+                statusList.push("Succeeded to create new book!")
                 statusDiv(statusList);
                 showBooks('ny bok');
 
@@ -206,14 +210,14 @@ async function showBooks(fromWhereIsFunctionCalled){
     let data = await response.json();
 
     if(fromWhereIsFunctionCalled === 'ny bok'){
-        statusList = ["Succeded to create new book!"];
+        statusList = ["Succeeded to create new book!"];
     } else if(fromWhereIsFunctionCalled === 'own key') {
         if(data.message === 'Bad API key, use "requestKey" to request a new one.'){
             let notWorking = false;
             console.log(notWorking);
             return notWorking;
         } else {
-            statusList = ["Succeded to update your key"];
+            statusList = ["Succeeded to update your key"];
         }
     }
 
